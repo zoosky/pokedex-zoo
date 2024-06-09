@@ -188,6 +188,16 @@ var MASK = BUCKET_SIZE - 1;
 var MAX_INDEX_NODE = BUCKET_SIZE / 2;
 var MIN_ARRAY_NODE = BUCKET_SIZE / 4;
 
+// build/dev/javascript/gleam_stdlib/gleam_stdlib.mjs
+function identity(x) {
+  return x;
+}
+
+// build/dev/javascript/gleam_stdlib/gleam/dynamic.mjs
+function from(a) {
+  return identity(a);
+}
+
 // build/dev/javascript/gleam_stdlib/gleam/bool.mjs
 function guard(requirement, consequence, alternative) {
   if (requirement) {
@@ -227,6 +237,22 @@ var Element = class extends CustomType {
     this.void = void$;
   }
 };
+var Attribute = class extends CustomType {
+  constructor(x0, x1, as_property) {
+    super();
+    this[0] = x0;
+    this[1] = x1;
+    this.as_property = as_property;
+  }
+};
+
+// build/dev/javascript/lustre/lustre/attribute.mjs
+function attribute(name, value) {
+  return new Attribute(name, from(value), false);
+}
+function class$(name) {
+  return attribute("class", name);
+}
 
 // build/dev/javascript/lustre/lustre/element.mjs
 function element(tag, attrs, children) {
@@ -737,6 +763,9 @@ function start3(app, selector, flags) {
 function text2(content) {
   return text(content);
 }
+function header(attrs, children) {
+  return element("header", attrs, children);
+}
 function h1(attrs, children) {
   return element("h1", attrs, children);
 }
@@ -744,14 +773,22 @@ function h1(attrs, children) {
 // build/dev/javascript/pokedex/pokedex.mjs
 function main() {
   let app = element2(
-    h1(toList([]), toList([text2("Pok\xE9dex Zoo")]))
+    header(
+      toList([class$("p-4 bg-red-500 text-white")]),
+      toList([
+        h1(
+          toList([class$("w-full mx-auto max-wscreen-xl text-4xl font-bold")]),
+          toList([text2("Pok\xE9dex Zoo")])
+        )
+      ])
+    )
   );
   let $ = start3(app, "#app", void 0);
   if (!$.isOk()) {
     throw makeError(
       "assignment_no_match",
       "pokedex",
-      7,
+      15,
       "main",
       "Assignment pattern did not match",
       { value: $ }

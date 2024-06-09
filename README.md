@@ -28,5 +28,13 @@ gleam shell # Run an Erlang shell
 gleam run -m lustre/dev start
 
 gleam run -m lustre/dev add tailwind
- 
+
+gleam run -m lustre/dev build app
+
+```
+
+## Help
+
+```sh
+gleam run -m lustre/dev -- --help
 ```
