@@ -1,5 +1,8 @@
-import gleam/io
+import lustre
+import lustre/element/html
+
 
 pub fn main() {
-  io.println("Hello from pokedex!")
+  let app = lustre.element(html.h1([], [html.text("Pokédex")]))
+  let assert Ok(_) = lustre.start(app, "#app", Nil)
 }

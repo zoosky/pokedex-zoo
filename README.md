@@ -6,6 +6,7 @@
 ```sh
 gleam add pokedex
 ```
+
 ```gleam
 import pokedex
 
@@ -22,4 +23,8 @@ Further documentation can be found at <https://hexdocs.pm/pokedex>.
 gleam run   # Run the project
 gleam test  # Run the tests
 gleam shell # Run an Erlang shell
+
+# Lustre
+ gleam run -m lustre/dev start
+ 
 ```
