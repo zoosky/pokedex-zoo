@@ -744,7 +744,7 @@ function h1(attrs, children) {
 // build/dev/javascript/pokedex/pokedex.mjs
 function main() {
   let app = element2(
-    h1(toList([]), toList([text2("Pok\xE9dex")]))
+    h1(toList([]), toList([text2("Pok\xE9dex Zoo")]))
   );
   let $ = start3(app, "#app", void 0);
   if (!$.isOk()) {
